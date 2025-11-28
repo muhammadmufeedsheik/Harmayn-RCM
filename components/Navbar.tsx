@@ -10,7 +10,9 @@ const Navbar: React.FC = () => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    // run once to set initial state (if landed mid-page)
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -24,19 +26,35 @@ const Navbar: React.FC = () => {
 
   return (
     <nav
-      className={`fixed w-full z-50 transition-all duration-300 ${
+      className={`header fixed w-full z-50 transition-all duration-300 ${
         scrolled ? 'bg-white/90 backdrop-blur-md shadow-md py-4' : 'bg-transparent py-6'
       }`}
+      role="navigation"
+      aria-label="Main"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
           <div className="flex items-center">
-            <a href="#home" className="flex items-center gap-2 group">
-              <div className="bg-blue-600 p-2 rounded-lg group-hover:bg-blue-700 transition-colors">
-                 <Activity className="h-6 w-6 text-white" />
+            <a href="#home" className="flex items-center gap-3 group" aria-label="Harmayn RCM home">
+              <div
+                className={`p-2 rounded-lg transition-colors ${
+                  scrolled ? 'bg-blue-600' : 'bg-blue-600'
+                }`}
+                aria-hidden
+              >
+                <Activity className={`h-6 w-6 ${scrolled ? 'text-white' : 'text-white'}`} />
               </div>
-              <span className={`text-2xl font-bold tracking-tight ${scrolled ? 'text-slate-900' : 'text-slate-900 lg:text-white'}`}>
-                Harmayn<span className="text-blue-600">RCM</span>
+
+              {/* Logo text: white when NOT scrolled, dark when scrolled */}
+              <span
+                className={`brand-text text-2xl font-bold tracking-tight transition-colors ${
+                  scrolled ? 'text-slate-900' : 'text-white'
+                }`}
+              >
+                Harmayn
+                <span className={`ml-1 font-semibold transition-colors ${scrolled ? 'text-blue-600' : 'text-blue-400'}`}>
+                  RCM
+                </span>
               </span>
             </a>
           </div>
@@ -56,7 +74,9 @@ const Navbar: React.FC = () => {
             ))}
             <a
               href="#contact"
-              className="px-5 py-2.5 rounded-full bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition-all shadow-lg hover:shadow-blue-500/30"
+              className={`px-5 py-2.5 rounded-full bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition-all shadow-lg hover:shadow-blue-500/30 ${
+                scrolled ? '' : ''
+              }`}
             >
               Get a Quote
             </a>
@@ -66,7 +86,9 @@ const Navbar: React.FC = () => {
           <div className="md:hidden flex items-center">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className={`p-2 rounded-md ${scrolled ? 'text-slate-900' : 'text-white'}`}
+              className={`p-2 rounded-md transition-colors ${scrolled ? 'text-slate-900' : 'text-white'}`}
+              aria-expanded={isOpen}
+              aria-label="Toggle menu"
             >
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
