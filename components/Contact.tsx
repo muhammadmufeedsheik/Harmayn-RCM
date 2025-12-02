@@ -1,6 +1,6 @@
 // components/Contact.tsx
 import React, { useEffect, useRef, useState } from "react";
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { Mail, MapPin, Send } from "lucide-react";
 
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/xeobkbwj"; // <- your Formspree URL
 
@@ -121,21 +121,6 @@ export default function Contact() {
             </p>
 
             <div className="space-y-6">
-              {/* Call Us */}
-              <div className="flex items-start gap-4">
-                <div className="bg-blue-100 p-3 rounded-lg">
-                  <Phone className="h-6 w-6 text-blue-600" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-slate-900">Call Us</h4>
-                  <p className="text-slate-600">
-                    <a href="tel:+9110812379" className="hover:underline">
-                      +91 9110812379
-                    </a>
-                  </p>
-                </div>
-              </div>
-
               {/* Email */}
               <div className="flex items-start gap-4">
                 <div className="bg-blue-100 p-3 rounded-lg">
@@ -151,14 +136,14 @@ export default function Contact() {
                 </div>
               </div>
 
-              {/* Headquarters */}
+              {/* Headquarters (updated to Karnataka, India) */}
               <div className="flex items-start gap-4">
                 <div className="bg-blue-100 p-3 rounded-lg">
                   <MapPin className="h-6 w-6 text-blue-600" />
                 </div>
                 <div>
                   <h4 className="font-semibold text-slate-900">Headquarters</h4>
-                  <p className="text-slate-600">Mysore, Karnataka, India</p>
+                  <p className="text-slate-600">Karnataka, India</p>
                 </div>
               </div>
             </div>
